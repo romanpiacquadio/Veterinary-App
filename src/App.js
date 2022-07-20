@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import Form from './components/Form';
+import Header from './components/Header';
+import PatientList from './components/PatientList';
 
 function App() {
+  const [patients, setPatients] = useState([])
+  const [patient, setPatient] = useState({})
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container mx-auto mt-20">
+      <Header/>
+      <div className='mt-12  md:flex justify-evenly'>
+
+        <Form 
+          patients= {patients}
+          setPatients={setPatients}
+          patient={patient}
+        />
+
+        <PatientList
+          patients={patients}
+          setPatient={setPatient}
+        />
+        
+      </div>
     </div>
   );
 }
