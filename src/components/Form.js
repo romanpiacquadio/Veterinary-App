@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Error from './Error';
 
-
-function Form({setPatients, patients, patient}) {
+function Form({setPatients, patients, patient, setPatient}) {
   const [name, setName] = useState('');
   const [owner, setOwner] = useState('');
   const [email, setEmail] = useState('');
@@ -21,7 +20,7 @@ function Form({setPatients, patients, patient}) {
     }
   }, [patient])
 
-  const generarId = () => {
+  const generateId = () => {
     const random = Math.random().toString(36).substr(2);
     const fecha = Date.now().toString(36)
     return random + fecha
@@ -39,8 +38,6 @@ function Form({setPatients, patients, patient}) {
 
     //validación del formulario
     if( [name, owner, email, date, symptoms].includes('')){
-        console.log('Some input fields is empty')
-        
         setError(true)
         return
     }
@@ -53,10 +50,20 @@ function Form({setPatients, patients, patient}) {
       email, 
       date, 
       symptoms,
-      id: generarId()
     }
-
-    setPatients([...patients, objPatient])
+    
+    if(patient.id){
+      //edicion
+      objPatient.id = patient.id
+      let modifiedArray = patients.map(pSelected => 
+        pSelected.id === patient.id ? objPatient : pSelected)
+      setPatients(modifiedArray)
+      setPatient({})
+      } else {
+      //creacion
+      objPatient.id = generateId()
+      setPatients([...patients, objPatient])
+    }
 
     //reiniciar el form
     setName('')

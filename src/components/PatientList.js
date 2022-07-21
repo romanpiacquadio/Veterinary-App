@@ -1,7 +1,7 @@
 import React from "react";
 import Patient from "./Patient";
 
-export default function PatientList({patients, setPatient}){
+export default function PatientList({patients, setPatient, deletePatient}){
     
     return (
         <div className='md:w-1/2 lg:w-2/5 mx-5 flex flex-col justify-center '>
@@ -20,13 +20,15 @@ export default function PatientList({patients, setPatient}){
                         <Patient 
                             p={p}
                             key={p.id}
-                            setPatient={setPatient}                           
+                            setPatient={setPatient}
+                            // setDPatient={setDPatient}
+                            deletePatient={deletePatient}                           
                         />)
                     })
                     }
                 </div>
             </div>
-        ): (<div className='flex flex-col justify-self-center	'>
+        ): (<div className='flex flex-col justify-self-center'>
                 <h2 className="font-black text-3xl text-center">No Patients in the list</h2>
                 <p className="text-xl mt-5 mb-10 text-center">
                 Start by adding your patients
